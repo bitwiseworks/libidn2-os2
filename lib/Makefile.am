@@ -13,6 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+VENDOR ?=community
+BUILD_INFO=\#\#1\#\# $(shell date +'%d %b %Y %H:%M:%S')     $(shell uname -n)
+BUILDLEVEL_INFO=@\#$(VENDOR):$(VERSION)\#@$(BUILD_INFO)::::$(IDN2_VERSION_PATCH)::
+
 AM_CPPFLAGS =
 
 AM_CPPFLAGS += -DIDN2_BUILDING -DSRCDIR=\"$(srcdir)\"
@@ -49,6 +53,7 @@ endif
 
 libidn2_la_LDFLAGS = \
 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) -no-undefined $(CODE_COVERAGE_LDFLAGS)
+libidn2_la_LDFLAGS += -buildlevel '$(BUILDLEVEL_INFO)'
 
 IDNA_TABLE = idna-tables-properties.csv
 IANA_URL = https://www.iana.org/assignments/idna-tables-11.0.0/idna-tables-properties.csv
